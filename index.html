@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>NFCientos — Digital & Creativo</title>
+
+    <meta name="description"
+          content="NFCientos — Digital & Creativo. Web, NFC y QR para conectar tu negocio con tus clientes.">
+
+    <style>
+        :root {
+            --bg: #0B0714;
+            --purple: #7C3AED;
+            --fuchsia: #D946EF;
+            --cyan: #22D3EE;
+            --white: #FAFAFA;
+            --gray: #A1A1AA;
+            --card: #151020;
+            --border: rgba(255,255,255,0.10);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: var(--bg);
+            color: var(--white);
+            line-height: 1.6;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        /* =========================
+           HERO
+        ========================= */
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-content {
+            max-width: 850px;
+            position: relative;
+            z-index: 2;
+        }
+
+        .nfc-symbol {
+            font-size: 45px;
+            letter-spacing: 8px;
+            color: var(--cyan);
+            margin-bottom: 25px;
+            text-shadow: 0 0 25px rgba(34,211,238,0.35);
+        }
+
+        .hero h1 {
+            font-size: clamp(42px, 10vw, 82px);
+            letter-spacing: 5px;
+            margin-bottom: 8px;
+        }
+
+        .hero-subtitle {
+            color: var(--fuchsia);
+            font-size: clamp(17px, 4vw, 24px);
+            font-weight: bold;
+            letter-spacing: 3px;
+            margin-bottom: 25px;
+        }
+
+        .hero p {
+            color: var(--gray);
+            font-size: clamp(18px, 4vw, 23px);
+            margin-bottom: 35px;
+        }
+
+        .cta {
+            display: inline-block;
+            padding: 15px 26px;
+            border-radius: 50px;
+            background: linear-gradient(
+                90deg,
+                var(--purple),
+                var(--fuchsia)
+            );
+            font-weight: bold;
+            transition: transform 0.2s ease;
+        }
+
+        .cta:hover {
+            transform: translateY(-3px);
+        }
+
+        .hero-waves {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            opacity: 0.12;
+        }
+
+        .wave {
+            position: absolute;
+            width: 420px;
+            height: 420px;
+            border: 2px solid var(--cyan);
+            border-radius: 50%;
+        }
+
+        .wave:nth-child(1) {
+            right: -250px;
+            top: 50%;
+        }
+
+        .wave:nth-child(2) {
+            right: -320px;
+            top: 50%;
+        }
+
+        .wave:nth-child(3) {
+            right: -390px;
+            top: 50%;
+        }
+
+        /* =========================
+           GENERAL SECTIONS
+        ========================= */
+
+        section {
+            padding: 80px 20px;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: clamp(30px, 6vw, 46px);
+            margin-bottom: 15px;
+        }
+
+        .section-intro {
+            max-width: 700px;
+            margin: 0 auto 45px;
+            text-align: center;
+            color: var(--gray);
+            font-size: 18px;
+        }
+
+        /* =========================
+           SERVICES
+        ========================= */
+
+        .services {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 30px;
+            transition: transform 0.25s ease,
+                        border-color 0.25s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--purple);
+        }
+
+        .card-icon {
+            font-size: 36px;
+            margin-bottom: 18px;
+        }
+
+        .card h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+
+        .card .price {
+            color: var(--cyan);
+            font-size: 22px;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+
+        .card p {
+            color: var(--gray);
+        }
+
+        .card ul {
+            list-style: none;
+            margin-top: 20px;
+        }
+
+        .card li {
+            margin-bottom: 9px;
+            color: #D4D4D8;
+        }
+
+        .card li::before {
+            content: "✓ ";
+            color: var(--cyan);
+            font-weight: bold;
+        }
+
+        /* =========================
+           NFC
+        ========================= */
+
+        .nfc-section {
+            background: #100B1D;
+        }
+
+        .nfc-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 22px;
+        }
+
+        .nfc-card {
+            text-align: center;
+        }
+
+        .nfc-card h3 {
+            margin-bottom: 10px;
+        }
+
+        .nfc-card p {
+            color: var(--gray);
+        }
+
+        /* =========================
+           CARE
+        ========================= */
+
+        .care {
+            border: 1px solid rgba(217,70,239,0.3);
+            background:
+                linear-gradient(
+                    145deg,
+                    rgba(124,58,237,0.12),
+                    rgba(217,70,239,0.05)
+                );
+            border-radius: 25px;
+            padding: 40px;
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .care h3 {
+            font-size: 30px;
+            margin-bottom: 12px;
+        }
+
+        .care p {
+            color: var(--gray);
+            margin-bottom: 18px;
+        }
+
+        /* =========================
+           CLOSING
+        ========================= */
+
+        .closing {
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .closing h2 {
+            font-size: clamp(32px, 7vw, 55px);
+            margin-bottom: 20px;
+        }
+
+        .closing p {
+            color: var(--gray);
+            max-width: 650px;
+            margin: 0 auto 30px;
+            font-size: 18px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px 20px;
+            border-top: 1px solid var(--border);
+            color: var(--gray);
+            font-size: 14px;
+        }
+
+        /* =========================
+           RESPONSIVE
+        ========================= */
+
+        @media (max-width: 800px) {
+
+            .services,
+            .nfc-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .card {
+                padding: 25px;
+            }
+
+            .care {
+                padding: 28px;
+            }
+
+            .hero {
+                min-height: 90vh;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- =========================
+         HERO
+    ========================= -->
+
+    <header class="hero">
+
+        <div class="hero-waves">
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+        </div>
+
+        <div class="hero-content">
+
+            <div class="nfc-symbol">
+                ● ))) ))) )))
+            </div>
+
+            <h1>NFCIENTOS</h1>
+
+            <div class="hero-subtitle">
+                DIGITAL & CREATIVO
+            </div>
+
+            <p>
+                Conectamos tu negocio<br>
+                con tus clientes.
+            </p>
+
+            <a href="#servicios" class="cta">
+                CONOCE NUESTROS SERVICIOS
+            </a>
+
+        </div>
+
+    </header>
+
+
+    <!-- =========================
+         SERVICIOS
+    ========================= -->
+
+    <section id="servicios">
+
+        <div class="container">
+
+            <h2 class="section-title">
+                Soluciones para tu negocio
+            </h2>
+
+            <p class="section-intro">
+                Desde una presencia digital profesional hasta
+                soluciones personalizadas que conectan el mundo
+                físico con el digital.
+            </p>
+
+
+            <div class="services">
+
+                <!-- WEB ESENCIAL -->
+
+                <article class="card">
+
+                    <div class="card-icon">🌐</div>
+
+                    <h3>
+                        Web Esencial
+                    </h3>
+
+                    <div class="price">
+                        $54.990
+                    </div>
+
+                    <p>
+                        Tu negocio en Internet,
+                        de forma profesional, clara
+                        y accesible.
+                    </p>
+
+                    <ul>
+                        <li>Diseño responsive</li>
+                        <li>Información del negocio</li>
+                        <li>Servicios o productos</li>
+                        <li>Google Maps</li>
+                        <li>Botones de contacto</li>
+                        <li>WhatsApp</li>
+                        <li>Redes sociales</li>
+                        <li>Logo e imágenes</li>
+                        <li>Publicación online</li>
+                    </ul>
+
+                </article>
+
+
+                <!-- WEB INTERACTIVA -->
+
+                <article class="card">
+
+                    <div class="card-icon">✨</div>
+
+                    <h3>
+                        Web Interactiva
+                    </h3>
+
+                    <div class="price">
+                        $89.990
+                    </div>
+
+                    <p>
+                        Tu negocio cobra vida
+                        con una experiencia digital
+                        más completa.
+                    </p>
+
+                    <ul>
+                        <li>Todo lo incluido en Web Esencial</li>
+                        <li>Diseño visual personalizado</li>
+                        <li>Identidad de colores y estilo</li>
+                        <li>Botones estratégicos</li>
+                        <li>Presentación visual de servicios</li>
+                        <li>Galería</li>
+                        <li>Animaciones y transiciones sutiles</li>
+                        <li>Tarjetas visuales</li>
+                        <li>NFC simple incluido</li>
+                        <li>QR incluido</li>
+                    </ul>
+
+                </article>
+
+
+                <!-- WEB PRO -->
+
+                <article class="card">
+
+                    <div class="card-icon">🚀</div>
+
+                    <h3>
+                        Web Pro
+                    </h3>
+
+                    <div class="price">
+                        Cotizable
+                    </div>
+
+                    <p>
+                        Una solución digital
+                        hecha a la medida
+                        de tu negocio.
+                    </p>
+
+                    <ul>
+                        <li>Diseño y estructura personalizada</li>
+                        <li>Funciones específicas</li>
+                        <li>Formularios</li>
+                        <li>Catálogos o menús avanzados</li>
+                        <li>Sistemas de solicitud o reserva</li>
+                        <li>Integraciones según proyecto</li>
+                        <li>Experiencias digitales especiales</li>
+                        <li>NFC incluido</li>
+                        <li>QR incluido</li>
+                    </ul>
+
+                </article>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         NFC
+    ========================= -->
+
+    <section class="nfc-section">
+
+        <div class="container">
+
+            <h2 class="section-title">
+                NFC + QR
+            </h2>
+
+            <p class="section-intro">
+                Una puerta directa entre tu negocio
+                y tus clientes.
+            </p>
+
+
+            <div class="nfc-grid">
+
+                <article class="card nfc-card">
+
+                    <div class="card-icon">💳</div>
+
+                    <h3>
+                        NFC Tarjeta Universal
+                    </h3>
+
+                    <div class="price">
+                        $9.000
+                    </div>
+
+                    <p>
+                        Una solución práctica para
+                        conectar tu negocio con
+                        tus clientes.
+                    </p>
+
+                </article>
+
+
+                <article class="card nfc-card">
+
+                    <div class="card-icon">🔑</div>
+
+                    <h3>
+                        NFC Llavero Instagram
+                    </h3>
+
+                    <div class="price">
+                        $6.000
+                    </div>
+
+                    <p>
+                        Facilita el acceso a Instagram
+                        desde un formato pequeño
+                        y práctico.
+                    </p>
+
+                </article>
+
+
+                <article class="card nfc-card">
+
+                    <div class="card-icon">✨</div>
+
+                    <h3>
+                        NFC Personalizado
+                    </h3>
+
+                    <div class="price">
+                        Cotizable
+                    </div>
+
+                    <p>
+                        Una solución NFC adaptada
+                        a las necesidades y experiencia
+                        que requiera tu negocio.
+                    </p>
+
+                </article>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         CARE
+    ========================= -->
+
+    <section>
+
+        <div class="container">
+
+            <div class="care">
+
+                <h3>
+                    🛡️ NFCientos Care
+                </h3>
+
+                <p>
+                    Tu conexión, respaldada.
+                </p>
+
+                <p>
+                    Servicio pensado para mantener
+                    actualizada y respaldada tu conexión
+                    digital según las condiciones
+                    correspondientes.
+                </p>
+
+                <ul>
+                    <li>
+                        3 solicitudes de actualización
+                        por trimestre
+                    </li>
+
+                    <li>
+                        Hasta 3 días para atención/reposición
+                        por pérdida, hurto o daño
+                    </li>
+                </ul>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         CIERRE
+    ========================= -->
+
+    <section class="closing">
+
+        <div class="container">
+
+            <h2>
+                Conectamos tu negocio
+                con tus clientes.
+            </h2>
+
+            <p>
+                Web • NFC • QR
+            </p>
+
+            <a href="#servicios" class="cta">
+                DESCUBRE NFCIENTOS
+            </a>
+
+        </div>
+
+    </section>
+
+
+    <!-- =========================
+         FOOTER
+    ========================= -->
+
+    <footer>
+
+        <p>
+            NFCientos — Digital & Creativo
+        </p>
+
+        <p>
+            Web • NFC • QR
+        </p>
+
+    </footer>
+
+</body>
+</html>
